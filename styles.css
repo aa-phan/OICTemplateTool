@@ -1,0 +1,156 @@
+body{
+    font-family: Calibri, sans-serif;
+    background-color: #002139;
+    
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+.column-headers {
+    display: flex; /* Establishes a flex container for the headers */
+    background-color: #0271eb;
+    color: white;
+    padding: 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.header-item {
+    flex: 1; /* Each header item takes equal width */
+    padding: 5px;
+}
+
+.row-container {
+    display: flex; /* Each row is a flex container */
+    border-top: 1px solid #eee; /* Adds a border between rows */
+}
+
+.column-item {
+    flex: 1; /* Each column item in a row takes equal width */
+    padding: 15px;
+    border-right: 1px solid #eee; /* Adds a vertical separator */
+    display: flex; /* Enables flexbox for centering content inside each column */
+    flex-direction: column; /* Arranges items vertically within the column */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    text-align: center;
+}
+
+.column-item:last-child {
+    border-right: none; /* Removes the border from the last column item */
+}
+
+/* Styling for forms within columns */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers form elements horizontally */
+    width: 100%;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    max-width: 180px; /* Limits input field width */
+}
+
+button {
+    /* Apply common button styles here */
+    width: 200px; /* As per your previous inline style */
+    height: 50px; /* As per your previous inline style */
+    background-color: #03c252;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px 0; /* Adds some spacing around buttons */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #06a328;
+}
+
+#messageArea {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 20px auto; /* Centers the message area and adds vertical spacing */
+    background-color: #d5d5d5;
+    text-align: center;
+    width: 100%;
+    max-width: 860px; /* Matches the width of the table/grid */
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .column-headers {
+        flex-direction: column;
+    }
+    .header-item {
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .header-item:last-child {
+        border-bottom: none;
+    }
+    .row-container {
+        flex-direction: column; /* Stack columns vertically on smaller screens */
+    }
+    .column-item {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+    .column-item:last-child {
+        border-bottom: none;
+    }
+}
+h1{
+    text-align: center;
+    color: #ffffff;
+}
+#Labels_Script{
+    display: block;
+    margin-bottom: 15px;
+    width: fit-content;
+}
+#Email_Template{
+    display: block;
+    margin-bottom: 15px;
+    width: fit-content;
+}
+.button-row-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+}
+.button-row-container button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #03c252; /* Green */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: fit-content;
+}
+form textarea[name="config"]{
+    min-width: 595px;
+    min-height: 152px;
+    resize: vertical;
+    box-sizing: border-box;
+}

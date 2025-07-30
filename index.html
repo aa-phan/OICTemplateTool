@@ -3,249 +3,132 @@
 <head>
     <title>OIC Template Tool</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            function copyToClipboard(text) {
-                if (navigator.clipboard && navigator.clipboard.writeText) { // Check for Clipboard API support
-                    navigator.clipboard.writeText(text).then(function() {
-                        console.log('Text successfully copied to clipboard');
-                        //alert('Message copied to clipboard!'); // Provide feedback to the user
-                    }).catch(function(err) {
-                        console.error('Failed to copy text to clipboard', err);
-                        //alert('Failed to copy message to clipboard.'); // Inform user of failure
-                    });
-                } else {
-                    // Fallback for older browsers (less reliable, but better than nothing)
-                    console.warn('Clipboard API not available, falling back to execCommand'); // Notify developers about the fallback
-                    var tempTextArea = document.createElement("textarea"); // Create a temporary textarea element
-                    tempTextArea.value = text;
-                    document.body.appendChild(tempTextArea); // Append the textarea to the document body
-                    tempTextArea.select(); // Select the text in the textarea
-                    document.execCommand("copy"); // Execute the copy command
-                    document.body.removeChild(tempTextArea); // Remove the temporary textarea
-                    //alert('Message copied to clipboard (using fallback)!');
-                }
-            }
-
-            $('#trigNIDsub').on('click',function() {
-                var $form = $(this).closest('form');
-                $.ajax({
-                    url: '/trigger_NID',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                        $form[0].reset();
-                        
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-                return false;
-            });
-            $('#WIA_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_wia_message',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#trigDRsub').on('click',function() {
-                var $form = $(this).closest('form');
-                $.ajax({
-                    url: '/trigger_DR',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                        $form[0].reset();
-                        
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-                return false;
-            });
-            $('#trigDCsub').on('click',function() {
-                var $form = $(this).closest('form');
-                $.ajax({
-                    url: '/trigger_DC',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                        $form[0].reset();
-                        
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-                return false;
-            });
-            $('#trigATTsub').on('click',function() {
-                var $form = $(this).closest('form');
-                $.ajax({
-                    url: '/trigger_ATT',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                        $form[0].reset();
-                        
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-                return false;
-            });
-            $('#CPW_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_CPW',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#PI_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_PI',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#FI_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_FI',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#SS_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_SS',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#SQ_Button').on('click', function() {
-                $.ajax({
-                    url: '/trigger_SQ',
-                    type: 'POST',
-                    success: function(response) {
-                        $('#messageArea').text(response.message);
-                        copyToClipboard(response.message);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        });
-    </script>
-</head>
-<body>
-    <style>
-        h1{
-            font-family: "Tahoma", sans-serif;
-            font-size: 40px;
-        }
-    </style>
-    <h1>OIC Notes Template App</h1>
-    <h2> made by: the best intern (aaron) </h2>
-    <h3> can i have part-time job now :3 </h3>
-    <button onclick="shutdownServer()">Shutdown Server</button>
-
-    <script>
-        function shutdownServer() {
-            fetch('/shutdown', { method: 'GET' })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message);
-                    // You might want to close the browser window or redirect after a short delay
-                    window.close(); // Or redirect to a "Server down" page
-                })
-                .catch(error => console.error('Error:', error));
-                window.close()
-        }
-    </script>
     <br>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHhmZ2tidDc1bWg5cjhnczJianQxdmN3cmthMmMzNGVneWxyaGR3YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jUwpNzg9IcyrK/giphy.gif" alt="reeee spectrum hates go getters" class="hardcoded-gif" width="400" height = "250">
-    <br>
+    <!-- <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHhmZ2tidDc1bWg5cjhnczJianQxdmN3cmthMmMzNGVneWxyaGR3YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jUwpNzg9IcyrK/giphy.gif" alt="reeee spectrum hates go getters" class="hardcoded-gif" width="400" height = "250">
+    <br> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    <body>
+        <h1> OIC Notes Template Tool </h1>
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <p id="messageArea"></p>
-    <form action="/trigger_NID" method="POST">
-        <input type = "text" name="location" placeholder="Demarc Location:"></input>
-        <br>
-        <button id = "trigNIDsub">NID Install Complete</button>
-    </form>
-    <br>
-    <button id="WIA_Button">WIA Install Complete</button>
-    <br>
-    <br>
-    <form action="/trigger_DR" method="POST">
-        <input type = "text" name="date" placeholder="Enter Dispatch Date:"></input>
-        <br>
-        <button id = "trigDRsub">Dispatch Request</button>
-    </form>
-    <br>
-    <form action="/trigger_DC" method="POST">
-        <input type = "text" name="date" placeholder="Enter Dispatch Date:"></input>
-        <input type = "text" name="name" placeholder="Enter Tech Name:"></input>
-        <br>
-        <button id = "trigDCsub">Dispatch Confirm</button>
-    </form>
-    <br>
-    <form action="/ATT_Install" method="POST">
-        <input type = "text" name="ip" placeholder="Enter IP Address:"></input>
-        <br>
-        <button id = "trigATTsub">AT&#38T Install</button>
-    </form>
-    <br>
-    <button id="CPW_Button">CPW Complete</button>
-    <br>
-    <button id="PI_Button">Pre-Install Complete</button>
-    <br>
-    <button id="FI_Button">Final Install Complete</button>
-    <br>
-    <button id="SS_Button">Site Survey Complete</button>
-    <br>
-    <button id="SQ_Button">Surver Quote Complete</button>
-    <br>
+    <div class="main-container">
+        <div class="column-headers">
+            <div class="header-item">Install Requests</div>
+            <div class="header-item">Install Completions</div>
+            <div class="header-item">Other Completions</div>
+        </div>
+        <div class="row-container">
+            <div class="column-item">
+                <form action="/trigger_DR" method="POST">
+                    <input type = "text" name="date" placeholder="Enter Dispatch Date:"></input>
+                    <br>
+                    <button id = "trigDRsub">Dispatch Request</button>
+                </form>
+            </div> 
+            <div class="column-item">
+                <form action="/trigger_DC" method="POST">
+                    <input type = "text" name="date" placeholder="Enter Dispatch Date:"></input>
+                    <br>
+                    <input type = "text" name="name" placeholder="Enter Tech Name:"></input>
+                    <br>
+                    <button id = "trigDCsub">Dispatch Confirm</button>
+                </form>
+            </div>
+            <div class="column-item">
+                <button id="CPW_Button">CPW Complete</button>
+            </div>
+        </div>
+        <div class="row-container">
+            <div class="column-item">
+                <button id="SS_Button">Site Survey Complete, Pending Quote</button>
+            </div>
+            <div class="column-item">
+                <button id = "trigNIDsub">NID Install Complete</button>
+            </div>
+            <div class="column-item">
+                <button id="PI_Button">Pre-Install Complete</button>
+            </div>
+        </div>
+        <div class = "row-container">
+            <div class="column-item">
+                <form action="/ATT_Install" method="POST">
+                    <input type = "text" name="ip" placeholder="Enter IP Address:"></input>
+                    <br>
+                    <button id = "trigATTsub">AT&#38T Install</button>
+                </form>
+            </div>
+            <div class="column-item">
+                <button id="WIA_Button">WIA Install Complete</button>
+            </div>
+            <div class="column-item">
+                <button id="FI_Button">Final Install Complete</button>
+            </div>
+        </div>
+        <div class = "row-container">
+            <div class="column-item">
+                <form action="/trigger_labels" method="POST">
+                    <input type = "text" name="circuit_ID" placeholder="Enter Circuit ID: "></input>
+                    
+                    <br>
+                    <input type = "text" name="device_ID" placeholder="Enter Device ID: "></input>
+                    <br>
+                    <textarea id="config" name = "config" placeholder="Enter Config:"></textarea>
+                    <br>
+                    <button id="Labels_Script"> Labels &#38 Script </button>
+                    <br>
+                </form>
+                <button id="emailButton">Email Template</button>
+                <div class = "button-row-container">
+                    
+                    <button id="firstButton">First Step</button>
+                    <button id="secondButton">Second Step</button>
+                    <button id="thirdButton">Third Step</button>
+                    <button id="fourthButton">Fourth Step</button>
+                    <button id="fifthButton">Fifth Step</button>
+                </div>
+            </div>
+            <div class="column-item">
+                <button id = "Install_Fail">Install Failed</button>
+            </div>
+            <div class="column-item">
+                <button id="SQ_Button">Survey Quote Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <table border = "1" style = "width:100%">
+        <tr>
+            <th> PCA Scripts <th>
+        </tr>
+        <tr>
+            <td>
+            <form action="/trigger_CER" method="POST">
+                <input type = "text" name="ae_tag" placeholder="Enter AE tag: "></input>
+                <input type = "text" name="vlan_tag" placeholder="Enter VLAN tag: "></input>
+                <input type = "text" name="ipv4_address" placeholder="Enter IPV4 Address (+1): "></input>
+                <input type = "text" name="ipv6_address" placeholder="Enter IPV6 Address: "></input>
+                <br>
+            <button id="CER_Scrub">CER Script</button>
+            </form>
+            </td>
+            <td>
+                <form action="/trigger_CES" method="POST">
+                <input type = "text" name="vlan_tag" placeholder="Enter VLAN tag: "></input>
+                <input type = "text" name="interface" placeholder="Enter Interface: "></input>
+                <br>
+            <button id="CES_Scrub">CES Script</button>
+            </form>
+            </td>
+            <td>
+            <form action="/trigger_NID_RAD" method="POST">
+                <input type = "text" name="ether1" placeholder="Enter ether port 1: "></input>
+                <input type = "text" name="ether2" placeholder="Enter ether port 2: "></input>
+                <br>
+            <button id="NID_RAD_Scrub">NID (RAD) Script</button>
+            </form>
+            </td>
+    </table>
+-->
     </body>
 </html>
